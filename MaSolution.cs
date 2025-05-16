@@ -78,7 +78,7 @@ public class Eleve
             Notes.Add(note);
             NoteCumulé += note.note;
             ++NombreNote;
-/*            Console.WriteLine("Nombre de note : " + NombreNote);
+/*          Console.WriteLine("Nombre de note : " + NombreNote);
             Console.WriteLine("Note cumulé : " + NoteCumulé);
             Console.WriteLine("Note.note : " + note.note);*/
         }

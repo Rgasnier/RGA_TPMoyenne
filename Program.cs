@@ -35,9 +35,6 @@ namespace HNI_TPmoyennes
                     {
                         sixiemeA.eleves[ieleve].ajouterNote(new Note(matiere, (float)((6.5 +
                        random.NextDouble() * 34)) / 2.0f));
-                        Console.WriteLine("i de Prog : " + i);
-                        Console.WriteLine("matiere de Prog : " + matiere);
-                        Console.WriteLine("ieleve de Prog : " + ieleve);
 
                         // Note minimale = 3
                     }
