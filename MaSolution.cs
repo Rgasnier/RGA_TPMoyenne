@@ -8,131 +8,147 @@ using System.Text;
 using System.Threading.Tasks;
 using HNI_TPmoyennes;
 
-public class Classe
-{
-    public List<Eleve> eleves = new List<Eleve>();
-    
-    public List<string> matieres = new List<string>();
-    internal string nomClasse;
 
-    public Classe(string nomClasse)
+class moyennesClasse
     {
-        NomClasse = nomClasse;
+        public static string[] Tmatieres = new string[10];
+        public static float[] Tmoyennes = new float[10];
     }
 
-    public string NomClasse { get; }
-    
-    internal void ajouterEleve(string Prenom, string Nom)
-    {
-        Eleve nouveau = new Eleve(Prenom, Nom);
-        eleves.Add(nouveau);
 
+class Classe
+{
+    public List<Eleve> eleves = new List<Eleve>();
+    public List<string> matieres = new List<string>();
+
+    public string nomClasse { get; }
+
+
+    public Classe(string NomClasse)
+    {
+        nomClasse = NomClasse;
+    }
+
+
+    internal void ajouterEleve(string prenom, string nom)
+    {
+        Eleve nouveau = new Eleve(prenom, nom);
+        eleves.Add(nouveau);
     }
 
     internal void ajouterMatiere(string matiere)
     {
         matieres.Add(matiere);
     }
-    internal float moyenneGeneral()
-    { 
-        float CMG = 0.0f;
-        return CMG;
-    }
-                                  
-    internal int moyenneMatiere(int CMM)
+
+    public float moyenneGeneral()
     {
-
-        return CMM;
-    }
-}
-public class Eleve
-{
-    //public List<float> NotesMoyenne { get; set; } = new List<float>();
-    float[] NotesMoyenne = new float[20];
-    //var NotesMoyenne = Dictionary<int, float>();
-    int i = 0;
-    public int NombreNote = 0;
-    public float NoteCumulé = 0.00f;
-    public string prenom { get; set; }
-    public string nom { get; set; }
-    internal List<Note> Notes { get; set; }
-
-    public Eleve (string Prenom, string Nom)
-    {
-        prenom = Prenom;
-        nom = Nom;
-        Notes = new List<Note>();
-        Console.WriteLine("Prenom :" + Prenom + "Nom : " + Nom);
-
-    }
-
-    public void ajouterNote(Note note)
-    {
-        //if (NotesMoyenne[i] != 0) && NombreNote == 0)
-        //{
-        //    Console.WriteLine("1er i = " + i);
-        //    ++i;
-        //    Console.WriteLine("2eme NotesMoyenne : " + NotesMoyenne[i]);
-        //}
-        if (NombreNote <5)
+        float CMG = 0;
+        float MoyenneCumuléC = 0;
+        int NombreDeMoyenne = 0;
+        for (int i = 0; i < matieres.Count; i++)
         {
-            Notes.Add(note);
-            NoteCumulé += note.note;
-            ++NombreNote;
-            Console.WriteLine("Nombre de note : " + NombreNote);
-            Console.WriteLine("Note cumulé : " + NoteCumulé);
-            Console.WriteLine("Note.note : " + note.note);
+            if (moyennesClasse.Tmoyennes[i] > 0)
+            {
+                MoyenneCumuléC += moyennesClasse.Tmoyennes[i];
+                NombreDeMoyenne++;
+            }
         }
-        else
-        {
-            NotesMoyenne[i] = NoteCumulé / NombreNote;
-            Console.WriteLine("NotesMoyenne : " + NotesMoyenne[i]);
-            Console.WriteLine("i = " + i);
-            ++i;
-            NoteCumulé =  0;
-            NombreNote = 0;
-        }
-        
-                //while (NombreNote < 20)
-        //{
-        //    Notes.Add(note);
-        //    NoteCumulé += note.note;
-        //    ++NombreNote;
-        //    Console.WriteLine("Nombre de note : " + NombreNote);
-        //    Console.WriteLine("Note cumulé : " + NoteCumulé);
-        //    Console.WriteLine("Note.note : " + note.note);
-        //}    
-        //if (NombreNote >= 20 && i <= 20)
-        //{
-        //    Console.WriteLine("i = " + i);
-        //    NotesMoyenne[i] = NoteCumulé / NombreNote;
-        //    ++i;
-        //    Console.WriteLine("NotesMoyenne : " + NotesMoyenne[0]);
-        //    NombreNote = 0;
-        //    NoteCumulé = 0;
-        //}
+        CMG += MoyenneCumuléC / NombreDeMoyenne;
+        return (float)Math.Round(CMG, 2);
+
     }
 
-    internal float moyenneMatiere(float EMM)
+
+    public float moyenneMatiere(int m)
     {
-        EMM = NotesMoyenne[6*2];
-        Console.WriteLine("Note moyenne Matiere : " + EMM);
-        return EMM;
-    }
-    internal float moyenneGeneral()
-    {
-        i = 0;
-        NoteCumulé = 0;
-        float EMG = 0.0f;
-        while (i < 20)
+        float CMM = 0;
+        for (int i = 0; i < matieres.Count; i++)
         {
-            NoteCumulé += NotesMoyenne[i];
-            i++;
+            float MoyenneCumuléE = 0;
+            int NombreDeNote = 0;
+            for (int j = 0; j < eleves.Count; j++)
+            {
+
+                MoyenneCumuléE += eleves[j].moyenneMatiere(m);
+                NombreDeNote++;
+            }
+            if (m < 3)
+            {
+                ++m;
+            }
+
+            CMM = MoyenneCumuléE / NombreDeNote;
+            moyennesClasse.Tmatieres[i] = matieres[i];
+            moyennesClasse.Tmoyennes[i] = (float)Math.Round(CMM, 2);
         }
-        NombreNote = i;
-        EMG = NoteCumulé / NombreNote;
-        return EMG;
+        return (float)Math.Round(CMM, 2);
     }
 }
 
 
+
+
+    class Eleve
+    {
+
+        public string prenom { get; }
+        public string nom { get; }
+        public List<Note> notes { get; }
+
+
+        public float[] NotesMoyenne;
+
+
+        public Eleve(string prenom, string nom)
+        {
+            this.prenom = prenom;
+            this.nom = nom;
+            notes = new List<Note>();
+
+            NotesMoyenne = new float[10];
+        }
+
+        internal void ajouterNote(Note note)
+        {
+            notes.Add(note);
+        }
+
+        internal float moyenneMatiere(int m)
+        {
+            float EMM = 0;
+            float NotesCumulé = 0;
+            int NombreNote = 0;
+            for (int i = 0; i < notes.Count; i++)
+            {
+                if (notes[i].matiere == m)
+                {
+
+
+                NotesCumulé += notes[i].note;
+                    NombreNote++;
+                }
+            }
+
+            EMM += NotesCumulé / NombreNote;
+            NotesMoyenne[m] = (float)Math.Round(EMM, 2);
+            return (float)Math.Round(EMM, 2);
+        }
+
+        internal float moyenneGeneral()
+        {
+            float MoyenneGeneralE = 0;
+            float MoyenneCumuléE = 0;
+            int NombreDeMoyenne = 0;
+            for (int i = 0; i < NotesMoyenne.Length; i++)
+            {
+                if (NotesMoyenne[i] > 0)
+                {
+                    MoyenneCumuléE += NotesMoyenne[i];
+                NombreDeMoyenne++;
+                }
+            }
+            MoyenneGeneralE += MoyenneCumuléE / NombreDeMoyenne;
+            return (float)Math.Round(MoyenneGeneralE, 2);
+        }
+    }

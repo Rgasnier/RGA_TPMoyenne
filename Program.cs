@@ -35,7 +35,6 @@ namespace HNI_TPmoyennes
                     {
                         sixiemeA.eleves[ieleve].ajouterNote(new Note(matiere, (float)((6.5 +
                        random.NextDouble() * 34)) / 2.0f));
-
                         // Note minimale = 3
                     }
                 }
@@ -45,14 +44,16 @@ namespace HNI_TPmoyennes
             // Afficher la moyenne d'un élève dans une matière
             Console.Write(eleve.prenom + " " + eleve.nom + ", Moyenne en " + sixiemeA.matieres[1] + " : " +
             eleve.moyenneMatiere(1) + "\n");
-            // Afficher la moyenne générale du même élève
-            Console.Write(eleve.prenom + " " + eleve.nom + ", Moyenne Generale : " + eleve.moyenneGeneral() + "\n");
             // Afficher la moyenne de la classe dans une matière
             Console.Write("Classe de " + sixiemeA.nomClasse + ", Moyenne en " + sixiemeA.matieres[1] + " : " +
             sixiemeA.moyenneMatiere(1) + "\n");
+            // Afficher la moyenne générale du même élève
+            Console.Write(eleve.prenom + " " + eleve.nom + ", Moyenne Generale : " + eleve.moyenneGeneral() + "\n");
             // Afficher la moyenne générale de la classe
             Console.Write("Classe de " + sixiemeA.nomClasse + ", Moyenne Generale : " + sixiemeA.moyenneGeneral() + "\n");
             Console.Read();
+
+
         }
     }
 }
