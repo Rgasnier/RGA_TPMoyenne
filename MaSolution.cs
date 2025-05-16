@@ -41,6 +41,7 @@ public class Classe
                                   
     internal int moyenneMatiere(int CMM)
     {
+
         return CMM;
     }
 }
@@ -65,28 +66,28 @@ public class Eleve
 
     }
 
-    internal void ajouterNote(Note note)
+    public void ajouterNote(Note note)
     {
-        /*if (NotesMoyenne[i] == 0 && NombreNote == 0)
-        {
-            Console.WriteLine("1er i = " + i);
-            ++i;
-            Console.WriteLine("NotesMoyenne : " + NotesMoyenne[0]);
-        }*/
+        //if (NotesMoyenne[i] != 0) && NombreNote == 0)
+        //{
+        //    Console.WriteLine("1er i = " + i);
+        //    ++i;
+        //    Console.WriteLine("2eme NotesMoyenne : " + NotesMoyenne[i]);
+        //}
         if (NombreNote <5)
         {
             Notes.Add(note);
             NoteCumulé += note.note;
             ++NombreNote;
-/*          Console.WriteLine("Nombre de note : " + NombreNote);
+            Console.WriteLine("Nombre de note : " + NombreNote);
             Console.WriteLine("Note cumulé : " + NoteCumulé);
-            Console.WriteLine("Note.note : " + note.note);*/
+            Console.WriteLine("Note.note : " + note.note);
         }
         else
         {
             NotesMoyenne[i] = NoteCumulé / NombreNote;
-/*            Console.WriteLine("NotesMoyenne : " + NotesMoyenne[i]);
-            Console.WriteLine("i = " + i);*/
+            Console.WriteLine("NotesMoyenne : " + NotesMoyenne[i]);
+            Console.WriteLine("i = " + i);
             ++i;
             NoteCumulé =  0;
             NombreNote = 0;
